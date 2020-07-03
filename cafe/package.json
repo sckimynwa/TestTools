@@ -1,0 +1,16 @@
+{
+  "name": "Cafe",
+  "version": "1.0.0",
+  "description": "test express-graphql",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sckimynwa",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.2.0"
+  }
+}
