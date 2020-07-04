@@ -1,9 +1,7 @@
-const mongoose = require("mongoose");
-
-const coffeeSchema = mongoose.Schema({
-    id: Int,
-    name: String,
-    price: Int,
-});
-
-export const CoffeeContent = mongoose.model("CoffeeContent", coffeeSchema);
+module.exports = function(mongoose) {
+    return new mongoose.Schema({
+        id: Number,
+        name: String,
+        price: Number,
+    });
+};

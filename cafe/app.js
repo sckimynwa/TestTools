@@ -2,8 +2,7 @@ var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
-const session = {id: '1001', expires: 20000};
-
+const model = require('./mongodb/mongo.js');
 var schema = buildSchema(`
     type Query {
         hello: String
@@ -15,7 +14,6 @@ var schema = buildSchema(`
         id: Int,
         name: String,
         price: Int,
-        stars: Int,
     }
 
     type User {
@@ -26,17 +24,11 @@ var schema = buildSchema(`
 
 var root = {
     hello: () => 'hello world!',
-    users: () => {
-        return [
-            { id: 1, name: "Jake" },
-            { id: 2, name: "Park" },
-            { id: 3, name: "Selena" }
-        ]
+    users: async() => {
+        return await model.User.find();
     },
-    coffee: () => {
-        return [
-            { id: 1, name: "Americano", price: 2500 },
-        ]
+    coffee: async() => {
+       return await model.Coffee.find();
     }
 }
 
@@ -45,7 +37,6 @@ app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,    
     graphiql: true,
-    context: session,
 }));
 
 app.listen(4000, () => console.log('Now broswe to localhost:4000/graphql'));
