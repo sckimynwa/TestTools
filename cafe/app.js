@@ -2,6 +2,8 @@ var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
+const session = {id: '1001', expires: 20000};
+
 var schema = buildSchema(`
     type Query {
         hello: String
@@ -43,6 +45,7 @@ app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,    
     graphiql: true,
+    context: session,
 }));
 
 app.listen(4000, () => console.log('Now broswe to localhost:4000/graphql'));
