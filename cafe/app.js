@@ -10,6 +10,11 @@ var schema = buildSchema(`
         users: [User]
     }
 
+    type Mutation {
+        createCoffee(name: String!, price: Int!): Coffee
+        createUser(name: String!): User
+    }
+
     type Coffee {
         id: Int,
         name: String,
@@ -29,6 +34,16 @@ var root = {
     },
     coffee: async() => {
        return await model.Coffee.find();
+    },
+    createUser: async(args, context, info) => {
+        const { name } = args;
+        const newUser = new model.User({ name: name });
+        return await newUser.save();
+    },
+    createCoffee: async(args, context, info) => {
+        const { name, price } = args;
+        const newCoffee = new model.Coffee({ name: name, price: price });
+        return await newCoffee.save();
     }
 }
 
@@ -38,5 +53,9 @@ app.use('/graphql', graphqlHTTP({
     rootValue: root,    
     graphiql: true,
 }));
+
+app.get('*', function(req, res){
+    res.end('Hello world');
+});
 
 app.listen(4000, () => console.log('Now broswe to localhost:4000/graphql'));
