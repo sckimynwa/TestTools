@@ -2,6 +2,7 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 const queryString = require('query-string');
+const axios = require('axios');
 
 const model = require('./mongodb/mongo.js');
 var schema = buildSchema(`
@@ -48,7 +49,7 @@ var root = {
     }
 }
 
-var app = express();
+const app = express();
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,    
@@ -70,12 +71,7 @@ app.get('/login/facebook', function(req, res) {
         <!DOCTYPE html>
         <html>
             <body>
-            <a href="https://www.facebook.com/v4.0/dialog/oauth
-            ?auth_type=rerequest
-            &client_id=331044621072978
-            &display=popup
-            &redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fcallback
-            &response_type=code&scope=email%2Cuser_friends">
+            <a href="https://www.facebook.com/v4.0/dialog/oauth?auth_type=rerequest&client_id=331044621072978&display=popup&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth%2Fcallback&response_type=code&scope=email%2Cuser_friends">
                 Login with Facebook
             </a>
             </body>
@@ -83,7 +79,24 @@ app.get('/login/facebook', function(req, res) {
     `);
 });
 
-app.get('/auth/callback', function(req, res) {
+async function getAccessTokenFromCode(code) {
+    const { data } = await axios({
+        url: 'https://graph.facebook.com/v4.0/oauth/access_token',
+        method: 'get',
+        params: {
+            client_id: "331044621072978",
+            client_secret: 's',
+            redirect_uri: 'http://localhost:4000/auth/callback', 
+            code,
+        },
+    });
+    console.log(data);
+    return data.access_token;
+}
+
+app.get('/auth/callback', async(req, res) => {
+    const access_token = await getAccessTokenFromCode(req.query.code);
+    console.log(access_token);
     res.send("authentification success");
 });
 
