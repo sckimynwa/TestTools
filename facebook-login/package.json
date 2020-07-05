@@ -1,0 +1,16 @@
+{
+  "name": "facebook-login",
+  "version": "1.0.0",
+  "description": "facebook-login with expressjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sckimynwa",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "query-string": "^6.13.1"
+  }
+}
