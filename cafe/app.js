@@ -96,7 +96,6 @@ async function getAccessTokenFromCode(code) {
 
 app.get('/auth/callback', async(req, res) => {
     const access_token = await getAccessTokenFromCode(req.query.code);
-    console.log(access_token);
     res.send("authentification success");
 });
 
