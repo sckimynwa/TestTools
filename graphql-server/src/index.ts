@@ -1,14 +1,26 @@
-const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const schema = require('./schema/schema');
+import express from "express";
+import mongoose from "mongoose";
+import { graphqlHTTP } from "express-graphql";
+import { schema } from "./schema/schema";
 
 const app = express();
+mongoose.connect("mongodb://localhost:27017/graphql-server");
+mongoose.connection.once("open", () => {
+  console.log("connected to database");
+});
 
-app.use('/graphql', graphqlHTTP({
+app.use(
+  "/graphql",
+  graphqlHTTP({
     schema,
     graphiql: true
-}));
+  })
+);
+
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.send("Hello World!");
+});
 
 app.listen(3000, () => {
-    console.log('Listening on port 3000');
+  console.log("Listening on port 3000");
 });
