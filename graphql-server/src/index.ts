@@ -4,8 +4,13 @@ import { graphqlHTTP } from "express-graphql";
 import { schema } from "./schema/schema";
 
 const app = express();
-mongoose.connect("mongodb://localhost:27017/graphql-server");
-mongoose.connection.once("open", () => {
+mongoose.connect("mongodb://localhost:27017/graphql-server", {
+  useNewUrlParser: true
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
   console.log("connected to database");
 });
 
