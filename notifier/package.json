@@ -4,6 +4,8 @@
   "description": "notify message using kakao-api",
   "main": "index.js",
   "scripts": {
+    "start:index": "tsc node.ts && node index.js",
+    "start:kakao": "tsc kakao.ts && node kakao.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sckimynwa",
@@ -15,7 +17,6 @@
     "express-graphql": "^0.11.0",
     "graphql": "^15.3.0",
     "mongoose": "^5.9.22",
-    "querystring": "^0.2.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
