@@ -9,7 +9,7 @@ const headers = {
 };
 
 // Get User Information
-async function getMe() {
+export async function getMe() {
   return await axios({
     method: "GET",
     baseURL,
@@ -19,7 +19,7 @@ async function getMe() {
 }
 
 // post Message for User
-async function postMessage(id: string) {
+export async function postMessage(id: string) {
   return await axios({
     method: "POST",
     baseURL,
@@ -42,7 +42,7 @@ async function postMessage(id: string) {
 }
 
 // post Message for Myself
-async function postMessageForMe() {
+export async function postMessageForMe() {
   return await axios({
     method: "POST",
     baseURL,
@@ -63,7 +63,7 @@ async function postMessageForMe() {
   });
 }
 
-getMe().then(res => console.log(res.data));
+// getMe().then(res => console.log(res.data));
 // postMessageForMe().then(
 //   res => {
 //     console.log(res);

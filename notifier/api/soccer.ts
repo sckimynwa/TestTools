@@ -7,9 +7,11 @@ const headers = {
   "X-Auth-Token": `${token}`
 };
 
-axios({
-  method: "GET",
-  url: "/competitions/2000/teams",
-  baseURL,
-  headers
-}).then(res => console.log(res.data));
+export async function getTeamsInfo() {
+  return await axios({
+    method: "GET",
+    url: "/competitions/2000/teams",
+    baseURL,
+    headers
+  });
+}
