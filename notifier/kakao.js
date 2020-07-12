@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var axios_1 = require("axios");
 // Auth Settings
+var BASE_URL = "https://kapi.kakao.com/v2";
 var token = "pHUVaON2FjzogE9rRLU-L5OhECFUBJn79JIsRAo9dNkAAAFzQwLIcg";
 var headers = {
     Authorization: "Bearer " + token,
@@ -51,7 +52,8 @@ function getMe() {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1["default"]({
                         method: "GET",
-                        url: "https://kapi.kakao.com/v2/user/me",
+                        baseURL: BASE_URL,
+                        url: "/user/me",
                         headers: headers
                     })];
                 case 1:
@@ -61,6 +63,12 @@ function getMe() {
         });
     });
 }
+// post Message for User
+function postMessage() {
+    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+        return [2 /*return*/];
+    }); });
+}
 // post Message for Myself
 function postMessageForMe() {
     return __awaiter(this, void 0, void 0, function () {
@@ -69,7 +77,8 @@ function postMessageForMe() {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1["default"]({
                         method: "POST",
-                        url: "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+                        baseURL: BASE_URL,
+                        url: "/api/talk/memo/default/send",
                         headers: headers,
                         params: {
                             template_object: {
@@ -90,9 +99,12 @@ function postMessageForMe() {
         });
     });
 }
-// getMe().then(res => console.log(res.data));
-postMessageForMe().then(function (res) {
-    console.log(res);
-}, function (err) {
-    console.log(err);
-});
+getMe().then(function (res) { return console.log(res.data); });
+// postMessageForMe().then(
+//   res => {
+//     console.log(res);
+//   },
+//   err => {
+//     console.log(err);
+//   }
+// );

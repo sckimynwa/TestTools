@@ -1,6 +1,7 @@
 import axios from "axios";
 
 // Auth Settings
+const baseURL = "https://kapi.kakao.com";
 const token = "pHUVaON2FjzogE9rRLU-L5OhECFUBJn79JIsRAo9dNkAAAFzQwLIcg";
 const headers = {
   Authorization: `Bearer ${token}`,
@@ -9,21 +10,24 @@ const headers = {
 
 // Get User Information
 async function getMe() {
-  const data = await axios({
+  return await axios({
     method: "GET",
-    url: "https://kapi.kakao.com/v2/user/me",
+    baseURL,
+    url: "/v2/user/me",
     headers
   });
-  return data;
 }
 
-// post Message for Myself
-async function postMessageForMe() {
-  const data = await axios({
+// post Message for User
+async function postMessage(id: string) {
+  return await axios({
     method: "POST",
-    url: "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+    baseURL,
+    url: "/v1/api/talk/friends/message/default/send",
     headers,
     params: {
+      receiver_uuids: id,
+      // change to variable template next time
       template_object: {
         object_type: "text",
         text: "sample text",
@@ -35,15 +39,36 @@ async function postMessageForMe() {
       }
     }
   });
-  return data;
 }
 
-// getMe().then(res => console.log(res.data));
-postMessageForMe().then(
-  res => {
-    console.log(res);
-  },
-  err => {
-    console.log(err);
-  }
-);
+// post Message for Myself
+async function postMessageForMe() {
+  return await axios({
+    method: "POST",
+    baseURL,
+    url: "/v2/api/talk/memo/default/send",
+    headers,
+    params: {
+      // change to variable template next time
+      template_object: {
+        object_type: "text",
+        text: "sample text",
+        link: {
+          web_url: "https://www.naver.com",
+          mobile_web_url: "https://www.naver.com"
+        },
+        button_title: "sample button"
+      }
+    }
+  });
+}
+
+getMe().then(res => console.log(res.data));
+// postMessageForMe().then(
+//   res => {
+//     console.log(res);
+//   },
+//   err => {
+//     console.log(err);
+//   }
+// );
