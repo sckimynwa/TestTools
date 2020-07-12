@@ -23,7 +23,7 @@ async function postMessageForMe() {
     method: "POST",
     url: "https://kapi.kakao.com/v2/api/talk/memo/default/send",
     headers,
-    data: {
+    params: {
       template_object: {
         object_type: "text",
         text: "sample text",

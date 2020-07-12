@@ -37,12 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var axios_1 = require("axios");
+// Auth Settings
 var token = "pHUVaON2FjzogE9rRLU-L5OhECFUBJn79JIsRAo9dNkAAAFzQwLIcg";
-var options = {
-    headers: {
-        Authorization: "Bearer " + token,
-        "content-type": "application/x-www-form-urlencoded"
-    }
+var headers = {
+    Authorization: "Bearer " + token,
+    "content-type": "application/x-www-form-urlencoded"
 };
 // Get User Information
 function getMe() {
@@ -51,16 +50,12 @@ function getMe() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1["default"]({
-                        method: "get",
+                        method: "GET",
                         url: "https://kapi.kakao.com/v2/user/me",
-                        headers: {
-                            Authorization: "Bearer " + token,
-                            "content-type": "application/x-www-form-urlencoded"
-                        }
+                        headers: headers
                     })];
                 case 1:
                     data = _a.sent();
-                    // const data = await axios.get("https://kapi.kakao.com/v2/user/me", options);
                     return [2 /*return*/, data];
             }
         });
@@ -73,13 +68,10 @@ function postMessageForMe() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1["default"]({
-                        method: "post",
+                        method: "POST",
                         url: "https://kapi.kakao.com/v2/api/talk/memo/default/send",
-                        headers: {
-                            Authorization: "Bearer " + token,
-                            "content-type": "application/x-www-form-urlencoded"
-                        },
-                        data: {
+                        headers: headers,
+                        params: {
                             template_object: {
                                 object_type: "text",
                                 text: "sample text",
