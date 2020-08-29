@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <button id="set">SetTimeout Button</button>
+  <div id="item"></div>
+  <script>
+    //  IIFE를 통해 즉시 실행
+    (function() {
+      let divItem = document.getElementById("item");
+      let button = document.getElementById("set");
+      let inputItem = document.createElement("input");
+
+      button.onclick = function() {
+        setTimeout(function() {
+          console.log("This is SetTimeout Function");
+          inputItem2.focus();
+        }, 0);
+        let inputItem2 = inputItem.cloneNode(true);
+        inputItem2.value = "Focused";
+        console.log("this is UI update");
+        divItem.appendChild(inputItem2);
+      };
+    })();
+  </script>
+</html>

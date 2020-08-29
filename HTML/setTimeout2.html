@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <button id="set">SetTimeout Button</button>
+  <div id="item"></div>
+  <script>
+    //  IIFE를 통해 즉시 실행
+    (function() {
+      let divItem = document.getElementById("item");
+      let button = document.getElementById("set");
+      let inputItem = document.createElement("input");
+
+      button.onclick = function() {
+        let inputItem2 = inputItem.cloneNode(true);
+        let waitSeconds = 10; // wait for 10 seconds
+
+        inputItem2.value = "Focused";
+        divItem.appendChild(inputItem2);
+        console.log("onclick event occured ", Date.now());
+
+        setTimeout(function() {
+          console.log("1st function callback executed ", Date.now());
+          sleep(waitSeconds * 1000); // sleep for 10 seconds
+        }, 2000);
+
+        setTimeout(function() {
+          console.log("2nd function callback executed ", Date.now());
+        }, 2000);
+        k;
+
+        sleep(waitSeconds * 1000); // sleep for 10 seconds
+      };
+
+      function sleep(waitMilliseconds) {
+        let waitUntil = Date.now() + waitMilliseconds;
+        while (Date.now() < waitUntil) {}
+      }
+    })();
+  </script>
+</html>
