@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <select id="doWorker">
+      <option>--SELECT--</option>
+      <option>doLargeLoop</option>
+    </select>
+    <script>
+      (function() {
+        console.log("Webworker Example");
+        var worker = new Worker("worker.js");
+        var selectWorker = document.getElementById("doWorker");
+        console.log(worker);
+        selectWorker.addEventListener("change", function() {
+          console.log("Main thread: sending message - " + this.value);
+          worker.postMessage(this.value);
+        });
+
+        worker.onmessage = function(msg) {
+          console.log("Main thread:  " + msg.data);
+        };
+      })();
+    </script>
+  </body>
+</html>
